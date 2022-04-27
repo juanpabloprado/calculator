@@ -41,16 +41,21 @@ public class Calculator {
             a = values.pop();
         }
         double r;
-        if (o == '+') {
-            r = a + b;
-        } else if (o == '-') {
-            r = a - b;
-        } else if (o == '*') {
-            r = a * b;
-        } else if (o == '/') {
-            r = a / b;
-        } else {
-            throw new IllegalArgumentException("Operator error.");
+        switch (o) {
+            case '+':
+                r = a + b;
+                break;
+            case '-':
+                r = a - b;
+                break;
+            case '*':
+                r = a * b;
+                break;
+            case '/':
+                r = a / b;
+                break;
+            default:
+                throw new IllegalArgumentException("Operator error.");
         }
         values.push(r);
     }
