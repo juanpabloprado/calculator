@@ -76,6 +76,17 @@ public class Calculator {
                     }
                     operators.push(current);
                 }
+            } else if (current == '(') {
+                operators.push(current);
+            } else if (current == ')') {
+                while (!operators.empty() && isOperator(operators.peek())) {
+                    processOperator(operators.pop());
+                }
+                if (!operators.empty() && operators.peek() == '(') {
+                    operators.pop();
+                } else {
+                    throw new IllegalArgumentException("Error: unbalanced parenthesis.");
+                }
             }
 
         }

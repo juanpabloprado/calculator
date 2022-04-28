@@ -11,6 +11,8 @@ import com.vaadin.flow.router.Route;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Route("")
 public class MainView extends VerticalLayout {
@@ -24,8 +26,9 @@ public class MainView extends VerticalLayout {
             String result = inputField.getValue() + " = ";
 
             // https://stackoverflow.com/a/13525053
-            String[] strings = StringUtils.stripAll(inputField.getValue().split("(?<=[-+*/])|(?=[-+*/])"));
-            List<String> tokens = List.of(strings);
+            String[] split = inputField.getValue().split("(?<=[-+*/()])|(?=[-+*/()])");
+            String[] strings = StringUtils.stripAll(split);
+            List<String> tokens = Arrays.stream(strings).filter(s -> !s.isBlank()).collect(Collectors.toList());
             double r = calculator.processInput(tokens);
 
             Checkbox checkbox = new Checkbox(result + r);
